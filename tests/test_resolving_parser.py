@@ -163,3 +163,11 @@ components:
   val = path_get(parser.specification, ('components', 'schemas', 'SampleArray', 'items'))
   assert '$ref' in val
 
+
+@pytest.mark.skipif(none_of('openapi-spec-validator', 'swagger-spec-validator', 'flex'), reason='Missing backends')
+def test_with_externals_resolve(with_externals_parser):
+  assert with_externals_parser.specification, 'No specs loaded!'
+
+  res = with_externals_parser.specification['paths']['/pets']['get']
+  res = res['responses']
+  assert res['200']['schema']['type'] == 'array'
