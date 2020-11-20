@@ -150,13 +150,7 @@ class RefResolver(object):
       full_path = path + item_path
 
       # First yield parent
-      if (
-        (self.__resolve_method == RESOLVE_SOFT and
-        base_url.path != self.parsed_url.path) or (
-          self.__resolve_method == RESOLVE_SOFT and
-          base_url.path != ref_url.path
-        )
-      ):
+      if self.__resolve_method == RESOLVE_SOFT and self.parsed_url.path != ref_url.path:
         # If RESOLVE_SOFT is enabled and the reference is an external reference, e.g. a file ref
         # or, if RESOLVE_SOFT is enabled and the reference is in an external object
         # collect the dereferenced object to add them later in components/schemas
