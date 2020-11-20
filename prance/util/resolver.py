@@ -104,8 +104,10 @@ class RefResolver(object):
     
     # If there are any objects collected when using RESOLVE_SOFT, add them to components/schemas
     if self.__soft_dereference_objs:
-      if "components" not in self.specs: self.specs["components"] = dict()
-      if "schemas" not in self.specs["components"]: self.specs["components"].update({"schemas":{}})
+      if "components" not in self.specs:
+        self.specs["components"] = {}
+      if "schemas" not in self.specs["components"]:
+        self.specs["components"]["schemas"] = {}
 
       self.specs["components"]["schemas"].update(self.__soft_dereference_objs)
 
@@ -155,7 +157,7 @@ class RefResolver(object):
         # or, if RESOLVE_SOFT is enabled and the reference is in an external object
         # collect the dereferenced object to add them later in components/schemas
         url = self._collect_soft_refs(ref_url, obj_path, ref_value)
-        yield full_path, {"$ref": "#/components/schemas/"+url}
+        yield full_path, {"$ref": "#/components/schemas/" + url}
       else:
         yield full_path, ref_value
   
